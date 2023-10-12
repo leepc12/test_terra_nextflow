@@ -12,7 +12,6 @@ workflow test_nextflow {
     call run_nextflow as run_nextflow_papi {
         input:
             conf = conf_papi,
-            nxf_ver = "20.01.0",
             nxf_mode = "google"
     }
 
