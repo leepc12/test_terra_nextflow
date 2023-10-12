@@ -38,6 +38,7 @@ task run_nextflow {
         unset "_JAVA_OPTIONS"
         ~{"export NXF_VER=" + nxf_ver}
         ~{"export NXF_MODE=" + nxf_mode}
+        export NXF_DEBUG=3
 
         nextflow run "https://github.com/nextflow-io/hello" ~{"-c " + conf} > out.txt
     }
