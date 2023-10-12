@@ -2,26 +2,30 @@ version 1.0
 
 workflow test_nextflow {
     input {
-        File conf
+        File conf_gcp
     }
 
-    call run_nextflow {
+    call run_nextflow as run_nextflow_local {
+    }
+
+    call run_nextflow as run_nextflow_gcp {
         input:
-            conf = conf
+            conf = conf_gcp
     }
 
     output {
-        File out = run_nextflow.out
+        File out_local = run_nextflow_local.out
+        File out_gcp = run_nextflow_gcp.out
     }
 }
 
 task run_nextflow {
     input {
-        File conf
+        File? conf
     }
     command {
         unset "_JAVA_OPTIONS"
-        nextflow run "https://github.com/nextflow-io/hello" -c "~{conf}" > out.txt
+        nextflow run "https://github.com/nextflow-io/hello" ~{"-c " + conf} > out.txt
     }
     output {
         File out = "out.txt"

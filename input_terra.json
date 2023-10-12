@@ -1,3 +1,3 @@
 {
-  "test_nextflow.conf": "/home/leepc12/test_terra_nextflow/nextflow.conf"
+  "test_nextflow.conf_gcp": "gs://fc-secure-87394b1b-e8d0-4802-9671-70bc3c8b7525/terra.conf"
 }
