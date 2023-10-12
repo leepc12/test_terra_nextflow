@@ -39,6 +39,16 @@ task run_nextflow {
         ~{"export NXF_MODE=" + nxf_mode}
         export NXF_DEBUG=3
 
+        echo "Printing GOOGLE_APPLICATION_CREDENTIALS..."
+        echo "$GOOGLE_APPLICATION_CREDENTIALS"
+
+        echo "Printing gcloud auth list..."
+        gcloud auth list
+
+        echo "Printing contents of ~/.config/gcloud/"
+        ls -l ~/.config/gcloud/
+
+        echo "Running Nextflow..."
         nextflow run "https://github.com/nextflow-io/hello" ~{"-c " + conf} > out.txt
         cat .nextflow.log
     }
