@@ -9,16 +9,16 @@ workflow test_nextflow {
     call run_nextflow as run_nextflow_local {
     }
 
-    call run_nextflow as run_nextflow_google_batch {
-        input:
-            conf = conf_google_batch
-    }
-
     call run_nextflow as run_nextflow_papi {
         input:
             conf = conf_papi,
             nxf_ver = "20.01.0",
             nxf_mode = "google"
+    }
+
+    call run_nextflow as run_nextflow_google_batch {
+        input:
+            conf = conf_google_batch
     }
 
     output {
@@ -41,9 +41,11 @@ task run_nextflow {
         export NXF_DEBUG=3
 
         nextflow run "https://github.com/nextflow-io/hello" ~{"-c " + conf} > out.txt
+        cat .nextflow.log
     }
     output {
         File out = "out.txt"
+        #File log = ".nextflow.log"
     }
     runtime {
         docker: "nextflow/nextflow"
