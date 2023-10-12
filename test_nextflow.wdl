@@ -2,29 +2,43 @@ version 1.0
 
 workflow test_nextflow {
     input {
-        File conf_gcp
+        File? conf_google_batch
+        File? conf_papi
     }
 
     call run_nextflow as run_nextflow_local {
     }
 
-    call run_nextflow as run_nextflow_gcp {
+    call run_nextflow as run_nextflow_google_batch {
         input:
-            conf = conf_gcp
+            conf = conf_google_batch
+    }
+
+    call run_nextflow as run_nextflow_papi {
+        input:
+            conf = conf_papi,
+            nxf_ver = "20.01.0",
+            nxf_mode = "google"
     }
 
     output {
         File out_local = run_nextflow_local.out
-        File out_gcp = run_nextflow_gcp.out
+        File out_google_batch = run_nextflow_google_batch.out
+        File out_google_papi = run_nextflow_papi.out
     }
 }
 
 task run_nextflow {
     input {
         File? conf
+        String? nxf_ver
+        String? nxf_mode
     }
     command {
         unset "_JAVA_OPTIONS"
+        ~{"export NXF_VER=" + nxf_ver}
+        ~{"export NXF_MODE=" + nxf_mode}
+
         nextflow run "https://github.com/nextflow-io/hello" ~{"-c " + conf} > out.txt
     }
     output {

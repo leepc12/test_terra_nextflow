@@ -1,3 +1,4 @@
 {
-  "test_nextflow.conf_gcp": "gs://fc-secure-87394b1b-e8d0-4802-9671-70bc3c8b7525/terra.conf"
+  "test_nextflow.conf_google_batch": "gs://fc-secure-87394b1b-e8d0-4802-9671-70bc3c8b7525/terra.batch.conf"
+  "test_nextflow.conf_papi": "gs://fc-secure-87394b1b-e8d0-4802-9671-70bc3c8b7525/terra.papi.conf"
 }
